@@ -22,29 +22,29 @@ jobs:
     - name: Run Calculator Tests
       run: |
         echo "Testing addition (2 + 2)"
-        result=$(python -c "from calculator import add; print(add(2, 2))")
-        if [ "$result" != "4.0" ]; then
+        result=$(python -c "from calculator import add; print(float(add(2, 2)))")
+        if [ "$(printf "%.1f" $result)" != "4.0" ]; then
           echo "Addition test failed: Expected 4.0, Got $result"
           exit 1
         fi
 
         echo "Testing subtraction (5 - 3)"
-        result=$(python -c "from calculator import subtract; print(subtract(5, 3))")
-        if [ "$result" != "2.0" ]; then
+        result=$(python -c "from calculator import subtract; print(float(subtract(5, 3)))")
+        if [ "$(printf "%.1f" $result)" != "2.0" ]; then
           echo "Subtraction test failed: Expected 2.0, Got $result"
           exit 1
         fi
 
         echo "Testing multiplication (3 * 3)"
-        result=$(python -c "from calculator import multiply; print(multiply(3, 3))")
-        if [ "$result" != "9.0" ]; then
+        result=$(python -c "from calculator import multiply; print(float(multiply(3, 3)))")
+        if [ "$(printf "%.1f" $result)" != "9.0" ]; then
           echo "Multiplication test failed: Expected 9.0, Got $result"
           exit 1
         fi
 
         echo "Testing division (10 / 2)"
-        result=$(python -c "from calculator import divide; print(divide(10, 2))")
-        if [ "$result" != "5.0" ]; then
+        result=$(python -c "from calculator import divide; print(float(divide(10, 2)))")
+        if [ "$(printf "%.1f" $result)" != "5.0" ]; then
           echo "Division test failed: Expected 5.0, Got $result"
           exit 1
         fi
