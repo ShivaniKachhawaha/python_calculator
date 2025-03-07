@@ -1,0 +1,59 @@
+name: Calculator Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Replace with the required Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+
+    - name: Run Calculator Tests
+      run: |
+        echo "Testing addition (2 + 2)"
+        result=$(python -c "from calculator import add; print(add(2, 2))")
+        if [ "$result" != "4.0" ]; then
+          echo "Addition test failed: Expected 4.0, Got $result"
+          exit 1
+        fi
+
+        echo "Testing subtraction (5 - 3)"
+        result=$(python -c "from calculator import subtract; print(subtract(5, 3))")
+        if [ "$result" != "2.0" ]; then
+          echo "Subtraction test failed: Expected 2.0, Got $result"
+          exit 1
+        fi
+
+        echo "Testing multiplication (3 * 3)"
+        result=$(python -c "from calculator import multiply; print(multiply(3, 3))")
+        if [ "$result" != "9.0" ]; then
+          echo "Multiplication test failed: Expected 9.0, Got $result"
+          exit 1
+        fi
+
+        echo "Testing division (10 / 2)"
+        result=$(python -c "from calculator import divide; print(divide(10, 2))")
+        if [ "$result" != "5.0" ]; then
+          echo "Division test failed: Expected 5.0, Got $result"
+          exit 1
+        fi
+
+        echo "Testing division by zero (10 / 0)"
+        result=$(python -c "from calculator import divide; print(divide(10, 0))")
+        if [ "$result" != "Error! Division by zero." ]; then
+          echo "Division by zero test failed: Expected 'Error! Division by zero.', Got $result"
+          exit 1
+        fi
+
+        echo "All tests passed!"
